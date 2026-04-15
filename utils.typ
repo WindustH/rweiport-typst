@@ -1,0 +1,47 @@
+// ============================================================
+// 辅助工具与组件
+// ============================================================
+#import "constants.typ": font-sizes, text-styles
+
+// 格式化作者列表，包含联系方式和机构
+#let format-authors(authors) = {
+  if authors == none { return none }
+  if type(authors) == str { return authors }
+
+  let count = authors.len()
+  if count == 0 { return none }
+
+  if type(authors.first()) == str { return authors.join(", ") }
+
+  let formatted = authors.map(author => {
+    let name = author.name
+    let aff = if "affiliation" in author { [\ #author.affiliation] } else { [] }
+    let email = if "email" in author { [\ #link("mailto:" + author.email)] } else { [] }
+    [#name #aff #email]
+  })
+
+  return formatted.join([; ])
+}
+
+// 仅提取作者名字作为字符串（用于 PDF 元数据）
+#let authors-to-string(authors) = {
+  if authors == none { return none }
+  if type(authors) == str { return authors }
+
+  let count = authors.len()
+  if count == 0 { return none }
+
+  if type(authors.first()) == str { return authors.join(", ") }
+  return authors.map(author => author.name).join(", ")
+}
+
+// 格式化额外信息 (如机构、班级等)
+#let format-info(info) = {
+  if info == none { return none }
+
+  let items = ()
+  for (key, value) in info.pairs() {
+    items.push([#text(weight: text-styles.weight-bold)[#key]: #value])
+  }
+  return items.join([ \ ])
+}
