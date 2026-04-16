@@ -1,7 +1,7 @@
 // ============================================================
 // 引用块样式定义 (全描边为默认：左侧粗线 + 四周描边)
 // ============================================================
-#import "constants.typ": colors, quote-defaults
+#import "constants.typ": colors, quote-defaults, border-thickness
 
 // 通用引用块核心函数
 #let quote(
