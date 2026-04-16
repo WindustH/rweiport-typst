@@ -1,7 +1,7 @@
 // ============================================================
 // 辅助工具与组件
 // ============================================================
-#import "constants.typ": font-sizes, text-styles
+#import "constants.typ": font-sizes, text-styles, title-area, colors
 
 // 格式化作者列表，包含联系方式和机构
 #let format-authors(authors) = {
@@ -44,4 +44,9 @@
     items.push([#text(weight: text-styles.weight-bold)[#key]: #value])
   }
   return items.join([ \ ])
+}
+
+// 分隔线组件
+#let split-line(length: 100%) = {
+  line(length: length, stroke: title-area.line-stroke + colors.line)
 }

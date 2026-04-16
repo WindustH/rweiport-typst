@@ -1,7 +1,7 @@
 // ============================================================
 // 引用块样式定义 (全描边为默认：左侧粗线 + 四周描边)
 // ============================================================
-#import "constants.typ": colors, quote-defaults, border-thickness
+#import "constants.typ": border-thickness, colors, quote-defaults
 
 // 通用引用块核心函数
 #let quote(
@@ -51,7 +51,7 @@
   ]
 }
 
-// 便捷包装器 - 主要引用 (Primary)
+// primary
 #let quote-primary(body, breakable: true, all-borders: true, ..args) = quote(
   body,
   breakable: breakable,
@@ -62,7 +62,7 @@
   ..args,
 )
 
-// 便捷包装器 - 警告引用 (Warning)
+// Warning
 #let quote-warning(body, breakable: true, all-borders: true, ..args) = quote(
   body,
   breakable: breakable,
@@ -73,7 +73,7 @@
   ..args,
 )
 
-// 便捷包装器 - 提示引用 (Tip)
+// Tip
 #let quote-tip(body, breakable: true, all-borders: true, ..args) = quote(
   body,
   breakable: breakable,
@@ -81,5 +81,16 @@
   fill: colors.quote.tip.bg,
   border-color: colors.quote.tip.border,
   text-fill: colors.quote.tip.text,
+  ..args,
+)
+
+// Error
+#let quote-error(body, breakable: true, all-borders: true, ..args) = quote(
+  body,
+  breakable: breakable,
+  all-borders: all-borders,
+  fill: colors.quote.error.bg,
+  border-color: colors.quote.error.border,
+  text-fill: colors.quote.error.text,
   ..args,
 )

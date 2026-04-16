@@ -11,7 +11,7 @@
   // 1. 设置默认字体与数学字体
   set text(font: fonts.main, size: spacing.text-size, cjk-latin-spacing: spacing.cjk-latin-spacing)
   show math.equation: set text(font: fonts.math, size: spacing.math-size)
-
+  set raw(theme: "cyberdream-light.tmTheme")
   // 2. 代码块样式设置
   show raw: set text(font: fonts.code)
   show raw: it => {
@@ -107,7 +107,7 @@
           ]
         ]
       ]
-      #line(length: 100%, stroke: title-area.line-stroke + colors.line)
+      #split-line()
       #v(title-area.v-after-line)
     ]
   }
