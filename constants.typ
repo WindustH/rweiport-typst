@@ -17,6 +17,7 @@
   info: rgb(67, 76, 125),
   link: rgb(20, 20, 180),
   raw-bg: rgb(244, 244, 244),
+  raw-border: rgb(113, 113, 113), // 代码块边框颜色
   // 引用块 (Quote) 的语义化色彩
   quote: (
     primary: (bg: rgb(242, 249, 255), border: rgb(46, 80, 129), text: rgb(40, 59, 75)),
@@ -87,9 +88,15 @@
   inset-x: 0.3em,
 )
 
+// 边框粗细配置
+#let border-thickness = (
+  quote-left: 4.4pt,      // 引用块左侧粗线
+  quote-other: 0.6pt,     // 引用块其他边细线
+  raw: 0.6pt,             // 代码块边框
+)
+
 // 引用块配置
 #let quote-defaults = (
-  stroke: 4.4pt,
   radius: 2pt,
   inset: (left: 16pt, y: 18pt, right: 25pt),
   width: 100%,

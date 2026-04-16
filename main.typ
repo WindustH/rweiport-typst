@@ -19,6 +19,7 @@
       v(code-block.v-spacing)
       block(
         fill: rgb(colors.raw-bg),
+        stroke: border-thickness.raw + colors.raw-border,
         radius: code-block.radius,
         outset: (y: code-block.outset-y),
         inset: (x: code-block.inset-x),
@@ -30,6 +31,7 @@
     } else {
       box(
         fill: rgb(colors.raw-bg),
+        stroke: border-thickness.raw + colors.raw-border,
         radius: code-inline.radius,
         outset: (y: code-inline.outset-y),
         inset: (x: code-inline.inset-x),

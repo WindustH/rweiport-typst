@@ -9,9 +9,7 @@
   breakable: true,
   fill: colors.quote.default.bg,
   border-color: colors.quote.default.border,
-  thickness: quote-defaults.stroke, // 左侧粗线的粗细
   all-borders: true, // 默认开启全边框
-  border-thickness: 0.6pt, // 全边框模式下，顶/右/底的线宽
   radius: quote-defaults.radius,
   inset: quote-defaults.inset,
   width: quote-defaults.width,
@@ -19,11 +17,11 @@
   ..args,
 ) = {
   // 定义左侧粗线样式
-  let left-side = (paint: border-color, thickness: thickness)
+  let left-side = (paint: border-color, thickness: border-thickness.quote-left)
 
   // 定义其他边（顶、右、底）的样式
   let other-side = if all-borders {
-    (paint: border-color, thickness: border-thickness)
+    (paint: border-color, thickness: border-thickness.quote-other)
   } else {
     none
   }
