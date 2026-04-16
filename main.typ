@@ -18,7 +18,7 @@
     if it.block {
       v(code-block.v-spacing)
       block(
-        fill: rgb(colors.raw-bg, alpha: 8%),
+        fill: rgb(colors.raw-bg),
         radius: code-block.radius,
         outset: (y: code-block.outset-y),
         inset: (x: code-block.inset-x),
@@ -29,7 +29,7 @@
       v(code-block.v-spacing)
     } else {
       box(
-        fill: rgb(colors.raw-bg, alpha: 8%),
+        fill: rgb(colors.raw-bg),
         radius: code-inline.radius,
         outset: (y: code-inline.outset-y),
         inset: (x: code-inline.inset-x),

@@ -16,7 +16,7 @@
   line: rgb(47, 56, 125),
   info: rgb(67, 76, 125),
   link: rgb(20, 20, 180),
-  raw-bg: rgb(0, 0, 0),
+  raw-bg: rgb(244, 244, 244),
   // 引用块 (Quote) 的语义化色彩
   quote: (
     primary: (bg: rgb(242, 249, 255), border: rgb(46, 80, 129), text: rgb(40, 59, 75)),
@@ -75,10 +75,10 @@
 
 // 代码块配置
 #let code-block = (
-  radius: 4pt,
-  outset-y: 8pt,
-  inset-x: 8pt,
-  v-spacing: 1em,
+  radius: 0.5em,
+  outset-y: 1.5em,
+  inset-x: 1.5em,
+  v-spacing: 1.5em,
 )
 
 #let code-inline = (
