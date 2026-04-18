@@ -6,7 +6,6 @@
 #let apply-heading-style(body) = {
   // 1. 设置标题基础编号与默认字体样式
   set heading(numbering: "1. ")
-  show heading.where(level: 2): set heading(numbering: "1.1 ")
 
   show heading: set text(
     font: fonts.heading,
