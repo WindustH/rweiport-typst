@@ -33,7 +33,7 @@
   title: 2.4em,
   author: 1.2em,
   info: 0.9em,
-  code-block: 1.2em,
+  code-block: 1.0em,
 )
 
 // 标题样式配置
@@ -71,7 +71,7 @@
 // 页面配置
 #let page-config = (
   paper: "a4",
-  margin-x: 2.5cm,
+  margin-x: 2.2cm,
   margin-y: 1.5cm,
 )
 
