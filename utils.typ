@@ -1,10 +1,22 @@
 // ============================================================
 // 辅助工具与组件
 // ============================================================
-#import "constants.typ": font-sizes, text-styles, title-area, colors
+
+// 字典深拷贝与合并工具
+#let deep-merge(a, b) = {
+  let res = a
+  for (k, v) in b {
+    if type(v) == dictionary and k in res and type(res.at(k)) == dictionary {
+      res.insert(k, deep-merge(res.at(k), v))
+    } else {
+      res.insert(k, v)
+    }
+  }
+  res
+}
 
 // 格式化作者列表，包含联系方式和机构
-#let format-authors(authors) = {
+#let format-authors(cfg, authors) = {
   if authors == none { return none }
   if type(authors) == str { return authors }
 
@@ -36,17 +48,17 @@
 }
 
 // 格式化额外信息 (如机构、班级等)
-#let format-info(info) = {
+#let format-info(cfg, info) = {
   if info == none { return none }
 
   let items = ()
   for (key, value) in info.pairs() {
-    items.push([#text(weight: text-styles.weight-bold)[#key]: #value])
+    items.push([#text(weight: cfg.text.weight-bold)[#key]: #value])
   }
   return items.join([ \ ])
 }
 
 // 分隔线组件
-#let split-line(length: 100%) = {
-  line(length: length, stroke: title-area.line-stroke + colors.line)
+#let split-line(cfg, length: 100%) = {
+  line(length: length, stroke: cfg.title-area.line-stroke + cfg.color.line)
 }

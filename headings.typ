@@ -1,33 +1,59 @@
 // ============================================================
-// 标题样式定义 (压缩字典匹配版)
+// 标题样式定义
 // ============================================================
-#import "constants.typ": colors, fonts, heading-sizes, heading-spacing, heading-styles
 
-#let apply-heading-style(body) = {
-  // 1. 设置标题基础编号与默认字体样式
-  set heading(numbering: "1. ")
+#let apply-heading-style(cfg, body) = {
+  // 构建标题编号渲染逻辑
+  let num-config = cfg.heading.numbering
+  let numbering-fn = if num-config == none {
+    none
+  } else if type(num-config) == function {
+    num-config
+  } else if type(num-config) == array {
+    if num-config.len() == 0 {
+      "1."
+    } else {
+      (..nums) => {
+        let pos = nums.pos()
+        let level = pos.len()
+        if level == 0 { return none }
+        let n = pos.last()
+        // 确保层级索引不越界，超出的层级默认使用最后一个格式
+        let format = num-config.at(calc.min(level - 1, num-config.len() - 1))
+        numbering(format, n)
+      }
+    }
+  } else if cfg.heading.numbering-only-current {
+    (..nums) => {
+      let pos = nums.pos()
+      if pos.len() == 0 { return none }
+      numbering(num-config, pos.last())
+    }
+  } else {
+    num-config
+  }
 
-  show heading: set text(
-    font: fonts.heading,
-    weight: "bold",
-    fill: colors.heading,
-  )
+  // 应用计算出的编号函数
+  set heading(numbering: numbering-fn)
 
   // 统一让标题与下文粘连，避免孤行标题
   show heading: set block(sticky: true)
 
-  // 2. 利用字典压缩逐级调整代码
-  // 统一的标题拦截转换
+  // 标题全局拦截转换：应用字号、颜色、字体
   show heading: it => {
-    // 按照层级读取，若层级 > 4 则默认采用 level 4 的样式
     let level = str(it.level)
-    let size = heading-sizes.at(level, default: heading-sizes.at("4"))
-    let spacing-values = heading-spacing.at(level, default: heading-spacing.at("4"))
-    let style = heading-styles.at(level, default: heading-styles.at("4"))
+    // 按照层级读取，若层级 > 4 则默认采用 level 4 的样式
+    let h-cfg = cfg.heading.at(level, default: cfg.heading.at("4"))
 
-    set text(size: size, style: style)
-    set block(above: spacing-values.above, below: spacing-values.below)
-    show math.equation: set text(size: size)
+    set text(
+      font: cfg.font.heading,
+      size: h-cfg.size,
+      style: h-cfg.style,
+      weight: h-cfg.weight,
+      fill: cfg.color.heading,
+    )
+    set block(above: h-cfg.above, below: h-cfg.below)
+    show math.equation: set text(size: h-cfg.size)
 
     it // 渲染应用好参数的标题
   }
