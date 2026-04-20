@@ -1,5 +1,5 @@
 #import "main.typ": init
-#import "quotes.typ": quote-primary, quote-warning, quote-tip, quote-error
+#import "quotes.typ": quote-error, quote-primary, quote-tip, quote-warning
 
 #show: doc => init(
   title: "Rweiport 模板排版测试",
@@ -23,8 +23,8 @@
     heading: (
       // 直接传入数组！每一级将会使用对应的编号格式，且默认只显示本级
       // 超出数组长度的层级将一直使用最后一个格式
-      numbering: ("一、", "I、", "A、", "1.")
-    )
+      numbering: ("一、", "I、", "A、", "1."),
+    ),
   ),
   doc,
 )
@@ -53,7 +53,10 @@ fn main() {
 
 #quote-error(has-thick-stroke: false)[指定 `has-thick-stroke: false`，它展示了均匀的细边框，不再提供某一边的强调。]
 
-#quote-warning(all-borders: false, has-thick-stroke: false)[这是最极端的案例：关闭了所有边框，完全没有描边，仅保留背景色。]
+#quote-warning(
+  all-borders: false,
+  has-thick-stroke: false,
+)[这是最极端的案例：关闭了所有边框，完全没有描边，仅保留背景色。]
 
 ==== 四级标题：结语
 

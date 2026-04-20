@@ -10,8 +10,8 @@
   fill: auto,
   border-color: auto,
   stroke-direction: "left", // 控制粗边的位置: "left", "right", "top", "bottom"
-  all-borders: true,        // 控制是否开启四周的默认边框
-  has-thick-stroke: true,   // 控制是否开启粗边框
+  all-borders: true, // 控制是否开启四周的默认边框
+  has-thick-stroke: true, // 控制是否开启粗边框
   radius: auto,
   inset: auto,
   width: auto,
@@ -19,7 +19,7 @@
   ..args,
 ) = context {
   let cfg = template-config.get()
-  
+
   let act-fill = if fill != auto { fill } else { cfg.color.quote.default.bg }
   let act-border = if border-color != auto { border-color } else { cfg.color.quote.default.border }
   let act-radius = if radius != auto { radius } else { cfg.quote.radius }
@@ -32,17 +32,18 @@
   let thin-stroke = (paint: act-border, thickness: cfg.quote.thin-stroke)
 
   let base-stroke = if all-borders { thin-stroke } else { none }
-  
+
   let s-left = base-stroke
   let s-right = base-stroke
   let s-top = base-stroke
   let s-bottom = base-stroke
-  
+
   if has-thick-stroke {
-    if stroke-direction == "left" { s-left = thick-stroke }
-    else if stroke-direction == "right" { s-right = thick-stroke }
-    else if stroke-direction == "top" { s-top = thick-stroke }
-    else if stroke-direction == "bottom" { s-bottom = thick-stroke }
+    if stroke-direction == "left" { s-left = thick-stroke } else if stroke-direction == "right" {
+      s-right = thick-stroke
+    } else if stroke-direction == "top" { s-top = thick-stroke } else if stroke-direction == "bottom" {
+      s-bottom = thick-stroke
+    }
   }
 
   block(
@@ -73,7 +74,14 @@
 }
 
 // primary
-#let quote-primary(body, breakable: true, stroke-direction: "left", all-borders: true, has-thick-stroke: true, ..args) = context {
+#let quote-primary(
+  body,
+  breakable: true,
+  stroke-direction: "left",
+  all-borders: true,
+  has-thick-stroke: true,
+  ..args,
+) = context {
   let cfg = template-config.get()
   quote(
     body,
@@ -89,7 +97,14 @@
 }
 
 // Warning
-#let quote-warning(body, breakable: true, stroke-direction: "left", all-borders: true, has-thick-stroke: true, ..args) = context {
+#let quote-warning(
+  body,
+  breakable: true,
+  stroke-direction: "left",
+  all-borders: true,
+  has-thick-stroke: true,
+  ..args,
+) = context {
   let cfg = template-config.get()
   quote(
     body,
@@ -105,7 +120,14 @@
 }
 
 // Tip
-#let quote-tip(body, breakable: true, stroke-direction: "left", all-borders: true, has-thick-stroke: true, ..args) = context {
+#let quote-tip(
+  body,
+  breakable: true,
+  stroke-direction: "left",
+  all-borders: true,
+  has-thick-stroke: true,
+  ..args,
+) = context {
   let cfg = template-config.get()
   quote(
     body,
@@ -121,7 +143,14 @@
 }
 
 // Error
-#let quote-error(body, breakable: true, stroke-direction: "left", all-borders: true, has-thick-stroke: true, ..args) = context {
+#let quote-error(
+  body,
+  breakable: true,
+  stroke-direction: "left",
+  all-borders: true,
+  has-thick-stroke: true,
+  ..args,
+) = context {
   let cfg = template-config.get()
   quote(
     body,

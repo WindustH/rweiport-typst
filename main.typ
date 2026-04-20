@@ -2,7 +2,7 @@
 // Typst 文档模板主入口
 // ============================================================
 #import "constants.typ": default-config, template-config
-#import "utils.typ": deep-merge, format-authors, authors-to-string, format-info, split-line
+#import "utils.typ": authors-to-string, deep-merge, format-authors, format-info, split-line
 #import "quotes.typ": *
 #import "headings.typ": apply-heading-style
 
@@ -11,19 +11,21 @@
   // 1. 设置默认字体与数学字体
   set text(font: cfg.font.main, size: cfg.size.text, cjk-latin-spacing: cfg.spacing.cjk-latin-spacing)
   show math.equation: set text(font: cfg.font.math, size: cfg.size.math)
-  
+
   if cfg.code.theme != none {
     set raw(theme: cfg.code.theme)
   }
-  
+
   // 2. 代码块样式设置
   show raw: set text(font: cfg.font.code)
   show raw: it => context {
     let quote-ctx = state("rweiport-quote-ctx", ()).get()
-    
+
     // 行内代码如果在 quote 中，则继承边框，并取背景色按配置变暗 (默认 8%)
     let inline-border = if quote-ctx.len() > 0 { quote-ctx.last().border } else { cfg.color.raw-border }
-    let inline-bg = if quote-ctx.len() > 0 { quote-ctx.last().bg.darken(cfg.code.inline.bg-darken) } else { cfg.color.raw-bg }
+    let inline-bg = if quote-ctx.len() > 0 { quote-ctx.last().bg.darken(cfg.code.inline.bg-darken) } else {
+      cfg.color.raw-bg
+    }
 
     if it.block {
       v(cfg.code.block.v-spacing)
@@ -104,7 +106,10 @@
       ][
         #if authors != none [
           #align(center)[
-            #text(size: cfg.size.author, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#format-authors(cfg, authors)]
+            #text(size: cfg.size.author, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#format-authors(
+              cfg,
+              authors,
+            )]
             #v(cfg.title-area.v-after-info)
           ]
         ]
