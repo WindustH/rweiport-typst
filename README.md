@@ -13,7 +13,7 @@
 - `constants.typ`: 提供经过结构化整理的 `default-config`（默认全局配置）。
 - `headings.typ`: 统一定制各种层级的标题尺寸、颜色及间距行为。
 - `quotes.typ`: 提供 `quote-primary`, `quote-warning`, `quote-tip`, `quote-error` 四种带语义化颜色的灵活引用块组件。
-- `utils.typ`: 定义了深层合并 `deep-merge`、封面数据格式化等工具函数。
+- `utils.typ`: 定义了深层合并 `deep-merge`、封面数据格式化、`make-title` 标题页生成、`split-line` 分隔线等工具函数。
 
 ## 配置字典 (config) 详解
 
@@ -55,13 +55,11 @@
 在您自己的 `.typ` 文件中引入模板，传入您的自定义配置进行覆写即可：
 
 ```typst
-#import "main.typ": init
+#import "main.typ": init, make-title, split-line
 #import "quotes.typ": quote-primary, quote-warning
 
+// 初始化模板，设置全局配置
 #show: doc => init(
-  title: "我的示例文档",
-  authors: "风的作者",
-  // 覆盖配置，任何您不指定的配置将会继续保持默认行为
   config: (
     font: (
       main: ("Times New Roman", "SimSun"),
@@ -76,9 +74,32 @@
   doc,
 )
 
+// 生成封面标题页（可选）
+#make-title(
+  title: "我的示例文档",
+  authors: (
+    (name: "张三", affiliation: "某某大学", email: "zhangsan@example.com"),
+    (name: "李四", affiliation: "某某公司"),
+  ),
+  date: "2024 年 5 月",
+  info: (
+    "课程": "计算机科学",
+    "学号": "2024001",
+  ),
+)
+
+// 插入分隔线（无需传入配置）
+#split-line()
+
 = 一级标题
 （此处标题的字体、颜色、间距都已自动适配您的新规则）
 
 #quote-primary(stroke-direction: "top")[这是一条带有上边框的提示]
 #quote-warning(all-borders: false, has-thick-stroke: false)[这是最极端的案例：完全没有边框，只剩下背景色]
 ```
+
+### 核心函数说明
+
+- **`init(config, doc)`**: 初始化模板，设置全局样式。必须在文档开头调用。
+- **`make-title(title, authors, date, info)`**: 生成封面标题页，设置 PDF 元数据。可选调用。
+- **`split-line(length)`**: 插入分隔线，样式自动跟随配置。可在文档任意位置使用。
