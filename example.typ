@@ -1,18 +1,7 @@
-#import "main.typ": init
+#import "main.typ": init, make-title, split-line
 #import "quotes.typ": quote-error, quote-primary, quote-tip, quote-warning
 
 #show: doc => init(
-  title: "Rweiport 模板排版测试",
-  authors: (
-    (name: "Typst User", affiliation: "Open Source Uni", email: "user@example.com"),
-    (name: "Designer", affiliation: "Creative Studio"),
-  ),
-  date: "2024 年 5 月 14 日",
-  info: (
-    "项目代码": "RWP-2024",
-    "版本号": "v1.2",
-  ),
-  // 传入嵌套字典覆盖任意属性
   config: (
     color: (
       heading: rgb(180, 50, 50), // 标题使用暗红色
@@ -28,6 +17,21 @@
   ),
   doc,
 )
+
+#make-title(
+  title: "Rweiport 模板排版测试",
+  authors: (
+    (name: "Typst User", affiliation: "Open Source Uni", email: "user@example.com"),
+    (name: "Designer", affiliation: "Creative Studio"),
+  ),
+  date: "2024 年 5 月 14 日",
+  info: (
+    "项目代码": "RWP-2024",
+    "版本号": "v1.2",
+  ),
+)
+
+#split-line()
 
 = 一级标题：核心功能介绍
 

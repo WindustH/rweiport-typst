@@ -38,7 +38,7 @@
   ),
   // 4. 标题分级配置
   heading: (
-    numbering: "1.1",       // 全局标题编号样式，设为 none 禁用。支持自定义函数
+    numbering: "1.1.",       // 全局标题编号样式，设为 none 禁用。支持自定义函数
     numbering-only-current: false, // 是否仅显示当前层级编号（不显示前缀）
     styles: (
       (size: 1.20em, above: 1.3em, below: 1.2em, style: "normal", weight: "bold"), // 1级

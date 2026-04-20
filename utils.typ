@@ -1,6 +1,7 @@
 // ============================================================
 // 辅助工具与组件
 // ============================================================
+#import "constants.typ": template-config
 
 // 字典深拷贝与合并工具
 #let deep-merge(a, b) = {
@@ -58,7 +59,50 @@
   return items.join([ \ ])
 }
 
-// 分隔线组件
-#let split-line(cfg, length: 100%) = {
+// 分隔线组件（从 state 读取配置）
+#let split-line(length: 100%) = context {
+  let cfg = template-config.get()
   line(length: length, stroke: cfg.title-area.line-stroke + cfg.color.line)
+}
+
+// 生成封面标题
+#let make-title(title: none, authors: none, date: none, info: none) = context {
+  let cfg = template-config.get()
+
+  // 设置 PDF 元数据
+  set document(title: title, author: authors-to-string(authors))
+
+  block(sticky: true)[
+    #set text(font: cfg.font.heading)
+    #grid(columns: (1fr, 1fr))[
+      #align(center)[
+        #text(size: cfg.size.title, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#title]
+        #v(cfg.title-area.v-after-title)
+      ]
+    ][
+      #if authors != none [
+        #align(center)[
+          #text(size: cfg.size.author, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#format-authors(
+            cfg,
+            authors,
+          )]
+          #v(cfg.title-area.v-after-info)
+        ]
+      ]
+      #if info != none [
+        #align(center)[
+          #text(size: cfg.size.info, fill: cfg.color.info)[#format-info(cfg, info)]
+          #v(cfg.title-area.v-after-info)
+        ]
+      ]
+      #if date != none [
+        #align(center)[
+          #text(size: cfg.size.info, fill: cfg.color.info)[#date]
+          #v(cfg.title-area.v-after-date)
+        ]
+      ]
+    ]
+    #split-line()
+    #v(cfg.title-area.v-after-line)
+  ]
 }

@@ -2,7 +2,7 @@
 // Typst 文档模板主入口
 // ============================================================
 #import "constants.typ": default-config, template-config
-#import "utils.typ": authors-to-string, deep-merge, format-authors, format-info, split-line
+#import "utils.typ": authors-to-string, deep-merge, format-authors, format-info, split-line, make-title
 #import "quotes.typ": *
 #import "headings.typ": apply-heading-style
 
@@ -74,63 +74,17 @@
 }
 
 // 供用户调用的模板核心外壳函数
-#let init(
-  title: none,
-  authors: none,
-  date: none,
-  info: none,
-  config: (:),
-  doc,
-) = {
+#let init(config: (:), doc) = {
   // 合并用户配置和默认配置
   let cfg = deep-merge(default-config, config)
 
   // 更新 state，供脱离上下文档的组件（如引用块等）进行 context 读取
   template-config.update(cfg)
 
-  // 文档 PDF 元数据注入
-  set document(title: title, author: authors-to-string(authors))
-
   // 【修复分页问题】：将样式作为整体规则提前应用
   show: apply-style.with(cfg)
 
-  // 生成封面与标题信息区，添加 sticky: true 确保其与后续正文粘连
-  if title != none {
-    block(sticky: true)[
-      #set text(font: cfg.font.heading)
-      #grid(columns: (1fr, 1fr))[
-        #align(center)[
-          #text(size: cfg.size.title, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#title]
-          #v(cfg.title-area.v-after-title)
-        ]
-      ][
-        #if authors != none [
-          #align(center)[
-            #text(size: cfg.size.author, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#format-authors(
-              cfg,
-              authors,
-            )]
-            #v(cfg.title-area.v-after-info)
-          ]
-        ]
-        #if info != none [
-          #align(center)[
-            #text(size: cfg.size.info, fill: cfg.color.info)[#format-info(cfg, info)]
-            #v(cfg.title-area.v-after-info)
-          ]
-        ]
-        #if date != none [
-          #align(center)[
-            #text(size: cfg.size.info, fill: cfg.color.info)[#date]
-            #v(cfg.title-area.v-after-date)
-          ]
-        ]
-      ]
-      #split-line(cfg)
-      #v(cfg.title-area.v-after-line)
-    ]
-  }
-
-  // 渲染剩余正文
+  // 渲染文档
   doc
 }
+
