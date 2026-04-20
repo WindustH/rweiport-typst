@@ -74,9 +74,9 @@
 }
 
 // 供用户调用的模板核心外壳函数
-#let init(config: (:), doc) = {
+#let init(config: none, doc) = {
   // 合并用户配置和默认配置
-  let cfg = deep-merge(default-config, config)
+  let cfg = if config != none { deep-merge(default-config, config) } else { default-config }
 
   // 更新 state，供脱离上下文档的组件（如引用块等）进行 context 读取
   template-config.update(cfg)
