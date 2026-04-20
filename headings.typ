@@ -41,9 +41,10 @@
 
   // 标题全局拦截转换：应用字号、颜色、字体
   show heading: it => {
-    let level = str(it.level)
-    // 按照层级读取，若层级 > 4 则默认采用 level 4 的样式
-    let h-cfg = cfg.heading.at(level, default: cfg.heading.at("4"))
+    let level = it.level
+    let styles = cfg.heading.styles
+    // 按照层级读取，若层级超出数组长度，则默认采用最后一个样式
+    let h-cfg = styles.at(calc.min(level - 1, styles.len() - 1))
 
     set text(
       font: cfg.font.heading,

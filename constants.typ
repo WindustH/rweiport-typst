@@ -38,12 +38,14 @@
   ),
   // 4. 标题分级配置
   heading: (
-    numbering: "1.1", // 全局标题编号样式，设为 none 禁用。支持自定义函数
+    numbering: "1.1",       // 全局标题编号样式，设为 none 禁用。支持自定义函数
     numbering-only-current: false, // 是否仅显示当前层级编号（不显示前缀）
-    "1": (size: 1.20em, above: 1.3em, below: 1.2em, style: "normal", weight: "bold"),
-    "2": (size: 1.10em, above: 1.1em, below: 0.9em, style: "normal", weight: "bold"),
-    "3": (size: 1.05em, above: 1.0em, below: 0.8em, style: "normal", weight: "bold"),
-    "4": (size: 1.00em, above: 0.9em, below: 0.8em, style: "italic", weight: "bold"),
+    styles: (
+      (size: 1.20em, above: 1.3em, below: 1.2em, style: "normal", weight: "bold"), // 1级
+      (size: 1.10em, above: 1.1em, below: 0.9em, style: "normal", weight: "bold"), // 2级
+      (size: 1.05em, above: 1.0em, below: 0.8em, style: "normal", weight: "bold"), // 3级
+      (size: 1.00em, above: 0.9em, below: 0.8em, style: "italic", weight: "bold"), // 4级
+    ),
   ),
   // 5. 段落与间距配置
   spacing: (
