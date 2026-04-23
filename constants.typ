@@ -64,7 +64,7 @@
   code: (
     theme: "cyberdream-light.tmTheme", // 代码高亮主题 (设为 none 可禁用)
     block: (radius: 0.5em, outset-y: 1.5em, inset-x: 1.5em, v-spacing: 1.5em, stroke-thickness: 0.8pt),
-    inline: (radius: 2pt, outset-y: 0.35em, inset-x: 0.3em, stroke-thickness: 0.8pt, bg-darken: 8%),
+    inline: (radius: 2pt, outset-y: 0.35em, inset-x: 0.3em, stroke-thickness: 0.8pt, bg-darken: 8%, bg-saturate: 0%),
   ),
   // 8. 引用块 (Quote) 基础属性
   quote: (

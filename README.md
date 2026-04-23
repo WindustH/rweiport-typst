@@ -42,7 +42,7 @@
 - **`code`**: 代码块与行内代码样式
   - `theme`: 代码高亮主题，默认为 `"cyberdream-light.tmTheme"`，你可以将其设为其他 `tmTheme` 或 `none` 以使用默认主题。
   - `block`: 多行代码块的 `radius`、`outset-y` 等配置。
-  - `inline`: 行内代码的 `radius` 等，以及专有的 `bg-darken` 属性（默认 `8%`），用于控制在引用块中时，行内代码背景相较于底色加深的比例。
+  - `inline`: 行内代码的 `radius` 等，以及专有的 `bg-darken` 属性（默认 `8%`），用于控制在引用块中时，行内代码背景相较于底色加深的比例。还可以使用 `bg-saturate` 属性（默认 `0%`，支持正负百分比，如 `10%` 或 `-10%`）来单独调节色彩的饱和度。
 - **`spacing`**: 间距排版配置
   - `par`, `par-leading`, `first-line-indent`
 - **`page`**: 页面设置

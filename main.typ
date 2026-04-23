@@ -2,7 +2,7 @@
 // Typst 文档模板主入口
 // ============================================================
 #import "constants.typ": default-config, template-config
-#import "utils.typ": authors-to-string, deep-merge, format-authors, format-info, split-line, make-title
+#import "utils.typ": authors-to-string, deep-merge, format-authors, format-info, make-title, split-line
 #import "quotes.typ": *
 #import "headings.typ": apply-heading-style
 
@@ -23,13 +23,18 @@
 
     // 行内代码如果在 quote 中，则继承边框，并取背景色按配置变暗 (默认 8%)
     let inline-border = if quote-ctx.len() > 0 { quote-ctx.last().border } else { cfg.color.raw-border }
-    let inline-bg = if quote-ctx.len() > 0 { quote-ctx.last().bg.darken(cfg.code.inline.bg-darken) } else {
+    let inline-bg = if quote-ctx.len() > 0 {
+      let base = quote-ctx.last().bg.darken(cfg.code.inline.bg-darken)
+      let sat = cfg.code.inline.bg-saturate
+      if sat > 0% { base.saturate(sat) } else if sat < 0% { base.desaturate(-sat) } else { base }
+    } else {
       cfg.color.raw-bg
     }
 
     if it.block {
       v(cfg.code.block.v-spacing)
       block(
+        width: 100%,
         fill: cfg.color.raw-bg,
         stroke: cfg.code.block.stroke-thickness + cfg.color.raw-border,
         radius: cfg.code.block.radius,
