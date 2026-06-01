@@ -70,36 +70,49 @@
   let cfg = template-config.get()
 
   // 设置 PDF 元数据
-  set document(title: title, author: authors-to-string(authors))
+  let doc-args = (title: title)
+  if authors != none {
+    doc-args.insert("author", authors-to-string(authors))
+  }
+  set document(..doc-args)
+
+  let has-right = authors != none or info != none or date != none
 
   block(sticky: true)[
     #set text(font: cfg.font.heading)
-    #grid(columns: (1fr, 1fr))[
+    #if has-right [
+      #grid(columns: cfg.title-area.columns)[
+        #align(center)[
+          #text(size: cfg.size.title, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#title]
+          #v(cfg.title-area.v-after-title)
+        ]
+      ][
+        #if authors != none [
+          #align(center)[
+            #text(size: cfg.size.author, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#format-authors(
+              cfg,
+              authors,
+            )]
+            #v(cfg.title-area.v-after-info)
+          ]
+        ]
+        #if info != none [
+          #align(center)[
+            #text(size: cfg.size.info, fill: cfg.color.info)[#format-info(cfg, info)]
+            #v(cfg.title-area.v-after-info)
+          ]
+        ]
+        #if date != none [
+          #align(center)[
+            #text(size: cfg.size.info, fill: cfg.color.info)[#date]
+            #v(cfg.title-area.v-after-date)
+          ]
+        ]
+      ]
+    ] else [
       #align(center)[
         #text(size: cfg.size.title, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#title]
         #v(cfg.title-area.v-after-title)
-      ]
-    ][
-      #if authors != none [
-        #align(center)[
-          #text(size: cfg.size.author, weight: cfg.text.weight-bold, fill: cfg.color.heading)[#format-authors(
-            cfg,
-            authors,
-          )]
-          #v(cfg.title-area.v-after-info)
-        ]
-      ]
-      #if info != none [
-        #align(center)[
-          #text(size: cfg.size.info, fill: cfg.color.info)[#format-info(cfg, info)]
-          #v(cfg.title-area.v-after-info)
-        ]
-      ]
-      #if date != none [
-        #align(center)[
-          #text(size: cfg.size.info, fill: cfg.color.info)[#date]
-          #v(cfg.title-area.v-after-date)
-        ]
       ]
     ]
     #split-line()
